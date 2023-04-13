@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  app:
+    image: 'open-weather:latest'
+    build:
+      context: .
+    ports:
+      - "9595-9597:8080"
+    deploy:
+      mode: replicated
+      replicas: 3
+    networks:
+      - open-weather-network
+    environment:
+      - "WEATHER_STACK_API_KEY=${WEATHER_STACK_API_KEY}"
+      - "SPRING_PROFILES_ACTIVE=test"
+networks:
+  open-weather-network:
